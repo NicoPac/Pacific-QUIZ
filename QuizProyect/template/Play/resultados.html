@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESULTADOS
+    </title>
+</head>
+
+<body>
+    {% extends 'base.html' %}
+
+
+    {% block contenido %}
+    <div class="container">
+
+        <div class="jumbotron my-4">
+
+            <h3 class="text-info">{{respondida.pregunta.texto|safe}}</h3>
+
+            <p>
+                <strong>Tu respuesta:</strong>
+                {{respondida.respuesta.texto|safe}}
+            </p>
+
+
+            {% if respondida.respuesta.correcta %}
+
+                    <h4 class="text-success">BRAVO! Tu respuesta es correcta :D</h4>
+
+                {% else %}
+
+                    <h4 class="text-danger">Tu respuesta es incorrecta :(</h4>
+
+                    {% for respuesta in respondida.pregunta.opciones.all %}
+
+                        {% if respuesta.correcta %}
+
+                            <h4>La respuesta correcta es: <span class="text-success">{{respuesta}}</span></h4>
+                            
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% endif %}
+
+                <a href="{% url 'playGame' %}">
+                    <button class="btn-success">
+                        SIGUIENTE PREGUNTA
+                    </button>
+                </a>
+
+        </div>
+
+    </div>
+    <div>
+        <form method="get" action="/logout"  style=" position: absolute; top: 4%; right: 4%;">
+            <button type="submit"style="background-color: #343a40;color: #ffff;border-color: #343a40;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;">
+                CERRAR SESION
+           </form>
+    </div>
+    <div>
+        <form method="get" action="/tablero" style=" position: absolute; top: 10%; right: 4%; font-size: 15px;">
+            <button type="submit" style="background-color: #17a2b8;color: #ffff;border-color: #17a2b8;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;">
+                TABLA DE POSICIONES
+           </form>
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>

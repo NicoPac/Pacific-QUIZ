@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLAY GAME</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block contenido %}
+
+
+    {% if pregunta is None %}
+
+        <div class = "container">
+            
+            <div class = "jumbotron my-4">
+                <h1>Ya respondiste todas las preguntas! Mirá el tablero de posiciones</h1>
+                <a href="{% url 'tablero' %}" style="background-color: #17a2b8;color: #ffff;border-color: #17a2b8;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;">Ver tablero</a>
+            </div>
+
+        </div>
+
+    {% else %}
+    
+        <div class="container">
+
+            <div class="jumbotron my-4">
+                <h3>
+                    {{pregunta.texto}}
+                </h3>
+
+                <form method="POST" class="form">
+                    {% csrf_token %}
+
+                    <input type="hidden" name= "pregunta_pk" value="{{pregunta.pk}}">
+                    
+                    {% for opciones in pregunta.opciones.all %}
+
+                        <div class="form-check mx-4">
+                        <input calss="form-check-input" type="radio" name="respuesta_pk" value="{{opciones.pk}}" id="choise-{{forloop.counter}}">
+
+                        <label class="form-check-label" for="choise-{{forloop.counter}}">
+                            {{opciones.texto}}
+                        </label>
+                    </div>
+
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-success">
+                        ENVIAR
+                    </button>
+
+                </form>
+            </div>
+        
+        </div>
+
+    {% endif %}
+    
+    <div>
+        <form method="get" action="/logout"  style=" position: absolute; top: 4%; right: 4%;">
+            <button type="submit"style="background-color: #343a40;color: #ffff;border-color: #343a40;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;">
+                CERRAR SESION
+           </form>
+    </div>
+    <div>
+        <form method="get" action="/tablero" style=" position: absolute; top: 10%; right: 4%; font-size: 15px;">
+            <button type="submit" style="background-color: #17a2b8;color: #ffff;border-color: #17a2b8;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;">
+                TABLA DE POSICIONES
+           </form>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

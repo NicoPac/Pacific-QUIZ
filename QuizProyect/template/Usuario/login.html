@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesion</title>
+</head>
+<body>
+    <div style=" position: absolute; top: 20%; left: 20%; font-size: 35px;" >
+        <form method="POST">
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+            <button type="submit" style="background-color: #28a745;color: #ffff;border-color: #28a745;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;">
+                ENVIAR
+            </button>
+
+        </form>
+    </div>
+
+    <div style=" position: absolute; top: 4%; right: 4%; font-size: 15px;" >
+        <form method="get" action="/tablero">
+            <button type="submit" style="background-color: #17a2b8;color: #ffff;border-color: #17a2b8;padding: 0.375rem 0.75rem;border-radius: 0.25rem;overflow: visible;border: 1px solid transparent;font-size: 20px;">
+                TABLA DE POSICIONES
+           </form>
+    </div>
+
+
+
+</body>
+</html>
